@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drum Kit</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>DRUM <span class="accent">KIT</span></h1>
+        <p class="subtitle">Made by Irishka eje ❤️ in San Francisco</p>
+      </header>
+
+      <canvas id="visualizer"></canvas>
+
+      <section class="pads-section">
+        <div class="set">
+          <button class="drum w" data-sound="w">
+            <span class="key">W</span>
+            <span class="name">Tom 1</span>
+          </button>
+          <button class="drum a" data-sound="a">
+            <span class="key">A</span>
+            <span class="name">Tom 2</span>
+          </button>
+          <button class="drum s" data-sound="s">
+            <span class="key">S</span>
+            <span class="name">Tom 3</span>
+          </button>
+          <button class="drum d" data-sound="d">
+            <span class="key">D</span>
+            <span class="name">Tom 4</span>
+          </button>
+          <button class="drum j" data-sound="j">
+            <span class="key">J</span>
+            <span class="name">Crash</span>
+          </button>
+          <button class="drum k" data-sound="k">
+            <span class="key">K</span>
+            <span class="name">Kick</span>
+          </button>
+          <button class="drum l" data-sound="l">
+            <span class="key">L</span>
+            <span class="name">Snare</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="controls">
+        <div class="control-group">
+          <label for="volume">Volume</label>
+          <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.8"
+          />
+        </div>
+        <div class="control-group">
+          <label for="bpm">BPM &nbsp;<span id="bpm-display">120</span></label>
+          <input
+            type="range"
+            id="bpm"
+            min="60"
+            max="200"
+            step="1"
+            value="120"
+          />
+        </div>
+        <div class="control-group toggle-group">
+          <label>Reverb</label>
+          <button class="toggle-btn" id="reverb-toggle">OFF</button>
+        </div>
+      </section>
+
+      <section class="sequencer">
+        <div class="seq-header">
+          <h2>BEAT SEQUENCER</h2>
+          <div class="seq-controls">
+            <button id="play-seq" class="seq-btn play">&#9654; PLAY</button>
+            <button id="stop-seq" class="seq-btn stop">&#9632; STOP</button>
+            <button id="clear-seq" class="seq-btn clear">&#10005; CLEAR</button>
+          </div>
+        </div>
+        <div id="seq-grid" class="seq-grid"></div>
+      </section>
+    </div>
+
+    <footer>Made by Irishka eje❤️ in San Francisco.</footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,375 @@
+:root {
+  --bg: #080810;
+  --surface: #10101e;
+  --surface2: #18182a;
+  --border: #252540;
+  --accent: #e0047a;
+  --accent2: #00d4ff;
+  --text: #e0e0f0;
+  --muted: #60607a;
+  --glow-pink: 0 0 16px rgba(224,4,122,0.55), 0 0 36px rgba(224,4,122,0.2);
+  --glow-cyan: 0 0 16px rgba(0,212,255,0.55), 0 0 36px rgba(0,212,255,0.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 36px 20px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ── Header ── */
+header { text-align: center; }
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  color: var(--text);
+  text-shadow: 0 0 30px rgba(224,4,122,0.5);
+}
+
+h1 .accent {
+  color: var(--accent);
+  text-shadow: var(--glow-pink);
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  margin-top: 6px;
+}
+
+/* ── Visualizer ── */
+#visualizer {
+  width: 100%;
+  height: 72px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: block;
+}
+
+/* ── Drum Pads ── */
+.pads-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+}
+
+.set {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.drum {
+  position: relative;
+  width: 126px;
+  height: 126px;
+  border-radius: 14px;
+  border: 2px solid var(--border);
+  background-color: var(--surface2);
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: transform 0.09s ease, border-color 0.15s, box-shadow 0.15s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Dark gradient so text is readable over drum images */
+.drum::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.72) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.drum .key {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: var(--text);
+  text-shadow: 3px 0 var(--accent);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  user-select: none;
+  z-index: 1;
+}
+
+.drum .name {
+  position: absolute;
+  bottom: 9px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.drum:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow-pink);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.drum.pressed {
+  border-color: var(--accent2);
+  box-shadow: var(--glow-cyan);
+  transform: scale(0.93);
+  transition: transform 0.05s ease;
+}
+
+.drum.pressed::before {
+  background: linear-gradient(to bottom, rgba(0,212,255,0.18), rgba(0,0,12,0.5));
+}
+
+/* Drum background images */
+.w { background-image: url("images/tom1.png"); }
+.a { background-image: url("images/tom2.png"); }
+.s { background-image: url("images/tom3.png"); }
+.d { background-image: url("images/tom4.png"); }
+.j { background-image: url("images/crash.png"); }
+.k { background-image: url("images/kick.png"); }
+.l { background-image: url("images/snare.png"); }
+
+/* ── Controls ── */
+.controls {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 28px;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 130px;
+}
+
+.control-group label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+#bpm-display {
+  color: var(--accent2);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: var(--glow-pink);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+
+.toggle-group { align-items: flex-start; }
+
+.toggle-btn {
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 26px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover { color: var(--text); border-color: var(--muted); }
+
+.toggle-btn.active {
+  color: var(--accent2);
+  border-color: var(--accent2);
+  background: rgba(0,212,255,0.08);
+  box-shadow: var(--glow-cyan);
+}
+
+/* ── Sequencer ── */
+.sequencer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.seq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.seq-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.seq-controls { display: flex; gap: 8px; }
+
+.seq-btn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+}
+
+.seq-btn.play { color: var(--accent); border-color: var(--accent); }
+.seq-btn.play:hover,
+.seq-btn.play.active { background: rgba(224,4,122,0.14); box-shadow: var(--glow-pink); }
+
+.seq-btn.stop { color: #ff6432; border-color: #ff6432; }
+.seq-btn.stop:hover { background: rgba(255,100,50,0.12); box-shadow: 0 0 14px rgba(255,100,50,0.4); }
+
+.seq-btn.clear { color: var(--muted); border-color: var(--border); }
+.seq-btn.clear:hover { color: var(--text); border-color: var(--muted); }
+
+/* Sequencer Grid */
+.seq-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.seq-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.seq-row-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  width: 48px;
+  flex-shrink: 0;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.seq-steps {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+
+.seq-step {
+  flex: 1;
+  height: 28px;
+  min-width: 0;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: background 0.08s, border-color 0.08s, box-shadow 0.08s;
+}
+
+/* Visual beat grouping: slightly wider gap after every 4th step */
+.seq-step:nth-child(4n) { margin-right: 4px; }
+
+.seq-step:hover { border-color: var(--muted); background: #1e1e32; }
+
+.seq-step.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(224,4,122,0.5);
+}
+
+.seq-step.cursor {
+  border-color: var(--accent2);
+  box-shadow: var(--glow-cyan);
+}
+
+.seq-step.active.cursor {
+  background: #ff1aaa;
+  border-color: #ff1aaa;
+  box-shadow: 0 0 14px rgba(255,26,170,0.75);
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 24px 0 32px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .drum { width: 100px; height: 100px; }
+  .controls { gap: 18px; }
+  .seq-row-label { width: 38px; font-size: 0.6rem; }
+  .seq-step { height: 22px; }
+  .seq-steps { gap: 2px; }
+  .seq-step:nth-child(4n) { margin-right: 3px; }
+}
